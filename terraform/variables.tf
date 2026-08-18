@@ -1,16 +1,7 @@
-variable "project_id" {
+# BAD PRACTICE: A sensitive credential with no 'sensitive = true' flag
+# and a hardcoded default secret.
+variable "database_password" {
+  description = "The password for the production database"
   type        = string
-  description = "The Google Cloud Project ID"
-}
-
-variable "region" {
-  type        = string
-  description = "The target GCP region for resources"
-  default     = "us-central1"
-}
-
-variable "zone" {
-  type        = string
-  description = "The target GCP zone for the VM"
-  default     = "us-central1-a"
+  default     = "SuperSecretPassword123!" 
 }

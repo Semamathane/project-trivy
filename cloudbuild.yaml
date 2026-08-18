@@ -1,0 +1,17 @@
+steps:
+  # Step 1: Build a Docker image (Optional, if you are scanning images)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/my-app', '.']
+
+  # Step 2: Run Trivy Vulnerability Scanner
+  - name: 'aquasec/trivy:latest'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        trivy image \
+        --format table \
+        --exit-code 1 \
+        --severity HIGH,CRITICAL \
+        --ignore-unfixed \
+        gcr.io/$PROJECT_ID/my-app
